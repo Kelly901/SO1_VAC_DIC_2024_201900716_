@@ -1,0 +1,30 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: basededatos-container
+    environment:
+      MYSQL_ROOT_PASSWORD: "1234"
+      MYSQL_DATABASE: "monitoreo_db"
+      MYSQL_USER: "kelly"
+      MYSQL_PASSWORD: "1234"
+    volumes:
+      - mysql-db:/var/mysql      # Volumen persistente para los datos
+      - ./Script.sql:/docker-entrypoint-initdb.d/Script.sql  # Montar el archivo Script.sql
+    ports:
+      - "3306:3306"
+    networks:
+      - db-network
+  #my-go-app:
+ #   image: "kelly901/image_go:v1"
+  #  container_name: "backend_go" 
+   # ports:
+    #  - "5200:5200"
+  #  restart: always
+
+volumes:
+  mysql-db: # Volumen persistente para MySQL
+    external: true  # Indicamos que usamos un volumen externo existente
+
+networks:
+  db-network:
+    driver: bridge  # Definimos la red db-network con el driver 'bridge'
