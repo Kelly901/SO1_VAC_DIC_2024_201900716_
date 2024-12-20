@@ -2,7 +2,7 @@ sudo apt update
 #instalar git
 sudo apt install git
 sudo apt update
-sudo git clone https://github.com/Kelly901/SO1_VAC_DIC_2024_201900716_.git
+git clon https://github.com/Kelly901/SO1_VAC_DIC_2024_201900716_.git
 cd SO1_VAC_DIC_2024_201900716_
 sudo apt-get install ca-certificates curl gnupg
 sudo install -m 0755 -d /etc/apt/keyrings

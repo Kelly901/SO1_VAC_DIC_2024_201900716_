@@ -243,7 +243,7 @@ Este comando ejecuta los conentededores forzando la reconstruccion de las imagen
 ## clonar el repo
     git clon https://github.com/Kelly901/SO1_VAC_DIC_2024_201900716_.git
 
-### Comandos para compilar
+### Comandos para gcc
     sudo apt install gcc-12
 
 ### Crear las carptes
