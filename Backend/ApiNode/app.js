@@ -3,17 +3,27 @@ const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 
 const app = express();
-const port = 3000;
+const port = 5002;
 
 // Middleware
 app.use(bodyParser.json());
 
 // Conexion a la base de datos MySQL
 const db = mysql.createConnection({
-    host: 'localhost',
+    host: 'basededatos-container',
     user: 'kelly',
     password: '1234',
     database: 'monitoreo_db',
+});
+
+const db2 = mysql.createPool({
+    host: 'basededatos-container',
+    user: 'kelly',
+    password: '1234',
+    database: 'monitoreo_db',
+    connectionLimit: 10,
+    waitForConnections: true,
+    queueLimit: 0
 });
 
 db.connect((err) => {
@@ -24,10 +34,12 @@ db.connect((err) => {
     console.log('Conexión exitosa a la base de datos.');
 });
 
+
+
 // Rutas de la API
 app.get('/', async (req, res) => {
 
-    res.status(201).json({ message: `Servidor corriendo en http://localhost:${port}` });
+    res.status(200).json({ message: `Servidor corriendo en http://localhost:${port}` });
 });
 // GET: Obtener todos los procesos
 app.post('/api/processes', async (req, res) => {
@@ -45,7 +57,7 @@ app.post('/api/processes', async (req, res) => {
             console.log(item.pid) // Acceder al valor de "pid"
 
 
-            db.query(
+            db2.query(
                 'INSERT INTO processes ( pid,porcentaje,name, user, state, ram, father) VALUES (?,?, ?, ?, ?, ?, ?)',
                 [item.pid, porcenFloat, item.name, item.user, item.state, item.ram,item .father|| null], (error, result) => {
                     if (error) {
@@ -67,7 +79,7 @@ app.post('/api/processes', async (req, res) => {
 });
 // devolver lsita de procesos
 app.get('/api/processes', (req, res) => {
-    db.query('SELECT * FROM processes', (err, results) => {
+    db2.query('SELECT * FROM processes', (err, results) => {
         if (err) {
             console.error('Error al ejecutar la consulta:', err);
             res.status(500).json({ message: 'Error al obtener los procesos' });
@@ -106,7 +118,7 @@ app.post('/api/cpus', (req, res) => {
 
 ///devolver lista de datos CPU
 app.get('/api/cpus', (req, res) => {
-    db.query('SELECT * FROM cpus', (err, results) => {
+    db2.query('SELECT * FROM cpus', (err, results) => {
         if (err) {
             console.error('Error al ejecutar la consulta:', err);
             res.status(500).json({ message: 'Error al obtener los procesos' });
@@ -127,7 +139,7 @@ app.post('/api/cpu_processes', async (req, res) => {
     }
 
     try {
-        await db.execute(
+        await db2.execute(
             'INSERT INTO cpu_processes (cpu_id, process_id) VALUES (?, ?)',
             [cpu_id, process_id]
         );
@@ -151,7 +163,7 @@ app.post('/api/rams', (req, res) => {
     try {
         console.log(req.body)
         console.log("datos recibidos")
-        db.query(
+        db2.query(
             'INSERT INTO rams (total_ram, free_ram, used_ram, percentage_used) VALUES (?, ?, ?, ?)',
             [ram_total, ram_libre, used_ram, porcentaje_usado], (error, result) => {
                 if (error) {
@@ -170,7 +182,7 @@ app.post('/api/rams', (req, res) => {
 });
 /// LISTA DE INFO DE RAM
 app.get('/api/rams', (req, res) => {
-    db.query('SELECT * FROM rams', (err, results) => {
+    db2.query('SELECT * FROM rams', (err, results) => {
         if (err) {
             console.error('Error al ejecutar la consulta:', err);
             res.status(500).json({ message: 'Error al obtener los procesos' });
@@ -190,7 +202,7 @@ app.post('/api/ips', async (req, res) => {
     }
 
     try {
-        const [result] = await db.execute(
+        const [result] = await db2.execute(
             'INSERT INTO ips (ip) VALUES (?)',
             [ip]
         );
@@ -208,7 +220,7 @@ app.put('/api/processes/:id', (req, res) => {
     const { id } = req.params;
     const { name, user, state, ram, father } = req.body;
 
-    db.query(
+    db2.query(
         'UPDATE processes SET name = ?, user = ?, state = ?, ram = ?, father = ? WHERE pid = ?',
         [name, user, state, ram, father, id],
         (err, result) => {
@@ -227,7 +239,7 @@ app.put('/api/processes/:id', (req, res) => {
 app.delete('/api/processes/:id', (req, res) => {
     const { id } = req.params;
 
-    db.query('DELETE FROM processes WHERE pid = ?', [id], (err, result) => {
+    db2.query('DELETE FROM processes WHERE pid = ?', [id], (err, result) => {
         if (err) {
             return res.status(500).json({ error: 'Error al eliminar el proceso.' });
         }
@@ -240,5 +252,5 @@ app.delete('/api/processes/:id', (req, res) => {
 
 // Levantar el servidor
 app.listen(port, () => {
-    console.log(`Servidor corriendo en http://localhost:${port}`);
+    console.log(`Servidor corriendo en http://container-node:${port}`);
 });

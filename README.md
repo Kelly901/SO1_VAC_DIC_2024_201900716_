@@ -145,7 +145,10 @@ Nota: se debe de colocar el punto del final.
 
 ### Ver los contenedores     
     sudo docker ps -a
+### Eliminar todas las imagenes
+    docker image prune -a
 
+##  Contenedores
 ### Ver los contenedores activos
     sudo docker ps
 ### Apagar un contenedor 
@@ -153,6 +156,8 @@ Nota: se debe de colocar el punto del final.
 
 ### Eliminar los contenedores que estan detenidos
     sudo docker container prune
+### ELiminar contenedor por id
+    docker rm <nombre-o-id-del-contenedor>
 
 ## DOCKER HUB
 ### Primero crear una cuenta

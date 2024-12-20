@@ -12,19 +12,20 @@ services:
       - ./Script.sql:/docker-entrypoint-initdb.d/Script.sql  # Montar el archivo Script.sql
     ports:
       - "3306:3306"
-    networks:
-      - db-network
+  node-app:
+    image: "kelly901/image_node:v3"
+    #build: ../Backend/ApiNode
+    container_name: container-node
+    ports:
+     - "5002:5002"
+    restart: always
   #my-go-app:
- #   image: "kelly901/image_go:v1"
-  #  container_name: "backend_go" 
-   # ports:
-    #  - "5200:5200"
-  #  restart: always
+   #image: "kelly901/image_go:v3"
+   #container_name: "backend_go" 
+   #ports:
+   #  - "5200:5200"
+   #restart: always
 
 volumes:
   mysql-db: # Volumen persistente para MySQL
-    external: true  # Indicamos que usamos un volumen externo existente
 
-networks:
-  db-network:
-    driver: bridge  # Definimos la red db-network con el driver 'bridge'
