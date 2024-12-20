@@ -81,7 +81,7 @@ func postScheduledData() {
 			fmt.Println("Este es el json value")
 			fmt.Println(string(jsonValue))
 			//Mandar respuesta CPU
-			url := "http://localhost:3000/api/processes"
+			url := "http://35.226.196.0:5002/api/processes"
 			//Manda ram_info que es un json
 			//jsonValue, _ = json.Marshal(ram_info)
 			fmt.Println(string(jsonValue))
@@ -119,7 +119,7 @@ func postScheduledData() {
 			}
 
 			//Mandar respuesta
-			url = "http://localhost:3000/api/rams"
+			url = "http://35.226.196.0:5002/api/rams"
 			//Manda ram_info que es un json
 			jsonValue, _ = json.Marshal(ram_info)
 			fmt.Println(string(jsonValue))

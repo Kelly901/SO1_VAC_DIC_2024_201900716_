@@ -1,6 +1,6 @@
 services:
   my-go-app:
-   image: "kelly901/image_go:v3"
+   image: "kelly901/image_go:v1"
    container_name: "backend_go" 
    ports:
     - "5200:5200"
