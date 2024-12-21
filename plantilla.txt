@@ -52,6 +52,13 @@ sudo update-alternatives --config g++
 # compilar e instalar el modulo de RAM
 cd ram/
 
+sudo apt update && sudo apt upgrade -y
+sudo apt remove --purge linux-headers-* -y
+
+sudo apt autoremove && sudo apt autoclean -y
+
+sudo apt install linux-headers-$(uname -r) -y
+
 sudo make all
 sudo insmod ram_201900716.ko
 sudo make clean
