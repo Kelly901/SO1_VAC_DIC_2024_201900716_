@@ -1,0 +1,73 @@
+
+
+sudo apt update -y
+sudo apt install git -y
+git --version
+
+# instalar docker
+sudo apt-get update -y
+sudo apt-get install ca-certificates curl gnupg -y
+
+sudo install -m 0755 -d /etc/apt/keyrings -y
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update -y
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+
+docker version
+docker compose version
+
+sudo apt install build-essential -y
+sudo apt-get install manpages-dev -y
+gcc --version
+
+sudo apt install make -y
+make --version
+
+sudo apt update && sudo apt upgrade -y
+sudo apt remove --purge linux-headers-* -y
+
+sudo apt autoremove && sudo apt autoclean -y
+
+sudo apt install linux-headers-$(uname -r) -y
+
+sudo git clone https://github.com/Kelly901/SO1_VAC_DIC_2024_201900716_.git
+sudo git fetch origin main
+sudo git checkout dev
+
+cd SO1_VAC_DIC_2024_201900716_/
+
+sudo apt install gcc-12 g++-12 -y
+
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 12
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 12
+sudo update-alternatives --config gcc
+sudo update-alternatives --config g++
+
+# compilar e instalar el modulo de RAM
+cd ram/
+
+sudo make all
+sudo insmod ram_201900716.ko
+sudo make clean
+
+cd ..
+
+cd cpu_201900716/
+sudo make all
+sudo insmod cpu_201900716.ko
+sudo make clean
+
+cd ..
+
+
+cd Backend/
+cd Recolector/
+
+sudo apt install docker-compose -y
+sudo docker-compose up --build
