@@ -102,7 +102,7 @@ No colocar nombres con espacios en las carpetas en donde estara el makefile
     cat ram
 ### para eliminar
     sudo rmmod cpu_201900716.ko
-
+      sudo rmmod ram_201900716.ko
 
 ## MODULO CPU
 ### COmando para compilar el Makefile
