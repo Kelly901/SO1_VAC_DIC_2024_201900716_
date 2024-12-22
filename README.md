@@ -1,5 +1,19 @@
+## Universidad de San Carlos de Guatemala
+## Facultad de Ingeniería
+## SISTEMAS OPERATIVOS 1
+
+
+| Nombre   | Carnet| 
+|----------|----------|
+| Kelly Mischel Herrera Espino   | 201900716   |
+
+# INRODUCCION
+### El presente manual es una guia para el uso de docker y docker compose, se detalla a continuacion los comandos que se utilizaron durante el desarrollo del proyecto. En el cual se dejan notas de como utilizar optimamente dichos comandos. Tambien algunos fueron soluciones que se colocaron para que se ejecutara algun script.
+
 
 ## Comando para DOCKER
+
+### Para instalra docker necesitamos utilizar los siguientes comandos:
 
 ## Instalar docker
 
@@ -93,6 +107,8 @@ No colocar nombres con espacios en las carpetas en donde estara el makefile
 ## MODULO CPU
 ### COmando para compilar el Makefile
     make all
+sudo make -C /lib/modules/$(uname -r)/build M=$(pwd) modules
+
 ### Comando para limpiear
     make clean
 ### Nota
@@ -232,6 +248,10 @@ Este comando ejecuta los conentededores forzando la reconstruccion de las imagen
 #### Ejecutar la aplicacion de Node
     node <nombre_aplicaccion>
 
+**Comando para ejecunta con run dev**
+
+<img src="imagenes/comando_node.png" alt="Topologìa1"  width="400" height="auto">
+
 
 # Configuracion maquina virtual
 
@@ -268,5 +288,24 @@ Este comando ejecuta los conentededores forzando la reconstruccion de las imagen
 ## revisar la insersion
      sudo dmesg
 
-### COmando para compilar el Makefile
+### Comando para compilar el Makefile
     make all
+
+## En caso de que de problema la ejecucion del make all, se puede utilizar el siguiente comando:
+    sudo make -C /lib/modules/$(uname -r)/build M=$(shell pwd) modules
+
+## Virtualizacion
+
+### Plantilla
+Para la plantilla se uso un script para automatizar la cracion de las maquinas virtuales.
+
+<img src="imagenes/plantilla.png" alt="Topologìa1"  width="400" height="auto">
+
+### Grupos
+Se creo un grupo a partir de la plantilla con un minimo de 1 maquina y un maximos de 4
+
+<img src="imagenes/plantilla.png" alt="Topologìa1"  width="400" height="auto">
+
+### Instancias
+
+<img src="imagenes/Instancias.png" alt="Topologìa1"  width="400" height="auto">

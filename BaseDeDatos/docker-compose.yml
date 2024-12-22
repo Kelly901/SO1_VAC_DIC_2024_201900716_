@@ -19,13 +19,21 @@ services:
     ports:
      - "5002:5002"
     restart: always
-  #my-go-app:
-   #image: "kelly901/image_go:v3"
-   #container_name: "backend_go" 
-   #ports:
-   #  - "5200:5200"
-   #restart: always
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3002:3000"  # Exposes Grafana's web interface on localhost:3000
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin  # Default admin username
+      - GF_SECURITY_ADMIN_PASSWORD=admin  # Default admin password (change it in production)
+    volumes:
+      - grafana_data:/var/lib/grafana  # Persistent storage for Grafana data
+    depends_on:
+      - mysql
+    restart: unless-stopped
+
 
 volumes:
   mysql-db: # Volumen persistente para MySQL
-
+  grafana_data:
