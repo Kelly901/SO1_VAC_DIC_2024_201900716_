@@ -76,7 +76,7 @@ Carpeta CPU
 
 Crear un archivo ram.c con las configuraciones correspondientes
 
-CRear un Makefile
+Crear un Makefile
 
 ### COmando para compilar el Makefile
     make all
@@ -102,7 +102,7 @@ No colocar nombres con espacios en las carpetas en donde estara el makefile
     cat ram
 ### para eliminar
     sudo rmmod cpu_201900716.ko
-      sudo rmmod ram_201900716.ko
+    sudo rmmod ram_201900716.ko
 
 ## MODULO CPU
 ### COmando para compilar el Makefile
@@ -124,7 +124,6 @@ No colocar nombres con espacios en las carpetas en donde estara el makefile
 ### 
     cd /proc/
 
-### 
     cat cpu_201900716
 ### para eliminar
     sudo rmmod cpu_201900716.ko
